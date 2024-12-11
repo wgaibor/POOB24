@@ -16,5 +16,10 @@ public class Estudiante extends Usuario{
         this.carrera = carrera;
     }
 
+    @Override
+    public Usuario mostrarInformacion(Usuario usuario) {
+        System.out.println("Es un estudiante");
+        return super.mostrarInformacion(usuario);
+    }
     
 }

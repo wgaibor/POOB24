@@ -17,5 +17,10 @@ public class Profesor extends Usuario {
         this.departamento = departamento;
     }
    
+    @Override
+    public Usuario mostrarInformacion(Usuario usuario) {
+        System.out.println("Es docente");
+        return super.mostrarInformacion(usuario);
+    }
    
 }

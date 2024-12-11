@@ -15,6 +15,10 @@ public abstract class Usuario {
         if(this.cedula == 0){
             return false;
         }
+        if (this.lstLibros.size() > App.CANTIDAD_MAX_LIBRO) {
+            System.out.println("Usted a superado la cantidad maxima de libros prestados   "+ this.lstLibros.size());
+            return false;
+        }
         usuario.setLstLibros(libro);
         return true;
     }
@@ -23,8 +27,14 @@ public abstract class Usuario {
         if(this.cedula == 0){
             return "No existe persona con cedula 0";
         }
-        
+        for (Libro objRetirar : libro) {
+            this.lstLibros.remove(objRetirar);
+        }
         return usuario.nombre+ " ha devuelto los libros" + libro.toString();
+    }
+
+    public Usuario mostrarInformacion(Usuario usuario){
+        return usuario;
     }
 
     public ArrayList<Libro> getLstLibros() {
