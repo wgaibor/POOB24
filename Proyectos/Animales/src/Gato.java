@@ -1,4 +1,4 @@
-public class Gato extends Animal implements Mascotas{
+public class Gato extends Animal implements Mascotas, DibujoAnimado{
 
     public Gato(String nombre, String codigo){
         super(nombre, codigo);
@@ -26,5 +26,21 @@ public class Gato extends Animal implements Mascotas{
     public void ronronea() {
         System.out.println("rrrrrr");
     }
+
+    @Override
+    public void dibujar() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'dibujar'");
+    }
+
+    @Override
+    public void actuar() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actuar'");
+    }
     
+    @Override
+    public String toString() {
+        return "No quiero decirte como me llamo";
+    }
 }

@@ -7,4 +7,10 @@ public abstract class Animal {
         this.codigo = codigo;
     }
 
+    void debesTenerUnNombre(){}
+
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 }

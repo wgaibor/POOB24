@@ -4,5 +4,7 @@ public class App {
         Gato tom = new Gato("Tom", "gato2");
         silvestre.hazRuido();
         silvestre.peleaCon(tom);
+        Perro snoppy = new Perro("Snoppy", "perro1");
+        silvestre.peleaCon(snoppy);
     }
 }
