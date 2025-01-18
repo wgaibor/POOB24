@@ -32,6 +32,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        ConexionDB conexionDB = new ConexionDB();
+        conexionDB.connectDatabase();
         launch();
     }
 

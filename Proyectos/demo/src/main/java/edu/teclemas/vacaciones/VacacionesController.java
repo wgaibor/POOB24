@@ -2,6 +2,7 @@ package edu.teclemas.vacaciones;
 
 import java.time.LocalDate;
 
+import edu.teclemas.vacaciones.dao.VacacionesDAO;
 import edu.teclemas.vacaciones.entity.Persona;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,7 +50,7 @@ public class VacacionesController {
 
     @FXML
     void initialize() {
-        //Configurar las columnas
+        // Configurar las columnas
         identificacion.setCellValueFactory(new PropertyValueFactory<>("identificacion"));
         feInicio.setCellValueFactory(new PropertyValueFactory<>("feInicio"));
         feFin.setCellValueFactory(new PropertyValueFactory<>("feFin"));
@@ -72,7 +73,7 @@ public class VacacionesController {
             }
             return null;
         }));
-        
+
     }
 
     @FXML
@@ -82,7 +83,7 @@ public class VacacionesController {
         LocalDate valorFeInicio = dpFeInicio.getValue();
         LocalDate valorFeFin = dpFeFin.getValue();
 
-        //Validaciòn de campos vacios
+        // Validaciòn de campos vacios
         if (valorIdentificacion.isEmpty()) {
             alertasPersonalizables("La identificación es requerida");
             return;
@@ -101,6 +102,13 @@ public class VacacionesController {
         objPersona.setFeInicio(valorFeInicio);
         objPersona.setFeFin(valorFeFin);
 
+        VacacionesDAO vacacionesInsertar = new VacacionesDAO();
+        if (vacacionesInsertar.insertarVacaciones(objPersona)) {
+            alertasPersonalizables("Se registro las vacaciones");
+        } else {
+            alertasPersonalizables("No se registro las vacaciones");
+        }
+
         olVacaciones.add(objPersona);
 
         limpiar(event);
@@ -114,7 +122,7 @@ public class VacacionesController {
         dpFeFin.setValue(null);
     }
 
-    void alertasPersonalizables(String mensaje){
+    void alertasPersonalizables(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText("Falta valores");
         alert.setTitle("Vacaciones");
