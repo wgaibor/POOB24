@@ -1,4 +1,4 @@
-package edu.teclemas.vacaciones;
+package ec.edu.examen;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("vacaciones"), 640, 480);
+        scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -32,12 +32,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        try {
-            ConexionDB conexionDB = new ConexionDB();
-            conexionDB.connectDatabase();
-        } catch (Exception e) {
-            System.out.println("Error al conectar a la base de datos: " + e);
-        }
         launch();
     }
 

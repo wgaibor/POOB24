@@ -2,6 +2,8 @@ package edu.teclemas.vacaciones.entity;
 
 import java.time.LocalDate;
 
+import edu.teclemas.vacaciones.App;
+
 public class Persona {
 
     private String identificacion;

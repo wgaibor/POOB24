@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.examen.VeterinarioController">
+   <children>
+      <Label layoutX="46.0" layoutY="35.0" text="Nombre Paciente" />
+      <Label layoutX="46.0" layoutY="70.0" text="Edad" />
+      <Label layoutX="46.0" layoutY="111.0" text="Observación" />
+      <TextField fx:id="txtNombre" layoutX="182.0" layoutY="31.0" />
+      <TextField fx:id="txtEdad" layoutX="182.0" layoutY="75.0" />
+      <TextField fx:id="txtObservacion" layoutX="182.0" layoutY="116.0" />
+      <Button fx:id="btnGuardar" layoutX="428.0" layoutY="43.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
+      <Button fx:id="btnLimpiar" layoutX="428.0" layoutY="104.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />
+      <TableView fx:id="tvVeterinario" layoutX="46.0" layoutY="155.0" prefHeight="200.0" prefWidth="452.0">
+        <columns>
+          <TableColumn fx:id="tcNombre" prefWidth="113.33331298828125" text="NombrePaciente" />
+          <TableColumn fx:id="tcEdad" prefWidth="78.66668701171875" text="Edad" />
+            <TableColumn fx:id="tcObservacion" prefWidth="254.00001525878906" text="Observacion" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

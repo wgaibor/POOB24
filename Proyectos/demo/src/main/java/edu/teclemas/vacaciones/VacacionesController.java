@@ -1,6 +1,7 @@
 package edu.teclemas.vacaciones;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import edu.teclemas.vacaciones.dao.VacacionesDAO;
 import edu.teclemas.vacaciones.entity.Persona;
@@ -9,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -19,11 +21,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class VacacionesController {
 
+    private final String ALERTA = "Alerta";
+    private final String PROCESO_GUARDADO = "Proceso de guardado";
+
     @FXML
     private Button btnIngresar;
 
     @FXML
     private Button btnLimpiar;
+
+    @FXML
+    private Button btnRefrescar;
 
     @FXML
     private DatePicker dpFeInicio;
@@ -58,6 +66,17 @@ public class VacacionesController {
         // Vincular la lista con el TableView
         tcVacaciones.setItems(olVacaciones);
 
+
+        // Cargar los datos de la base de datos
+        try {
+            List<Persona> listaVacaciones = new VacacionesDAO().listarVacaciones();
+            olVacaciones.addAll(listaVacaciones);
+        } catch (Exception e) {
+            System.out.println("Error al conectar a la base de datos: " + e);
+            alertasPersonalizables(ALERTA, "No se puede conectar a la base de datos", Alert.AlertType.ERROR);
+        }
+        
+
         // Limitar el TextField a 10 caracteres
         txtIdentificacion.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().length() <= 10) {
@@ -85,15 +104,15 @@ public class VacacionesController {
 
         // Validaciòn de campos vacios
         if (valorIdentificacion.isEmpty()) {
-            alertasPersonalizables("La identificación es requerida");
+            alertasPersonalizables(ALERTA, "La identificación es requerida", Alert.AlertType.WARNING);
             return;
         }
         if (valorFeInicio == null) {
-            alertasPersonalizables("La fecha de inicio es requerida");
+            alertasPersonalizables(ALERTA, "La fecha de inicio es requerida", Alert.AlertType.WARNING);
             return;
         }
         if (valorFeFin == null) {
-            alertasPersonalizables("La fecha fin es requerida");
+            alertasPersonalizables(ALERTA, "La fecha fin es requerida", Alert.AlertType.WARNING);
             return;
         }
 
@@ -104,9 +123,9 @@ public class VacacionesController {
 
         VacacionesDAO vacacionesInsertar = new VacacionesDAO();
         if (vacacionesInsertar.insertarVacaciones(objPersona)) {
-            alertasPersonalizables("Se registro las vacaciones");
+            alertasPersonalizables(PROCESO_GUARDADO, "Se registro las vacaciones", Alert.AlertType.CONFIRMATION);
         } else {
-            alertasPersonalizables("No se registro las vacaciones");
+            alertasPersonalizables(PROCESO_GUARDADO, "No se registro las vacaciones", Alert.AlertType.ERROR);
         }
 
         olVacaciones.add(objPersona);
@@ -122,9 +141,16 @@ public class VacacionesController {
         dpFeFin.setValue(null);
     }
 
-    void alertasPersonalizables(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText("Falta valores");
+    @FXML
+    void refrescar(ActionEvent event) {
+        olVacaciones.clear();
+        List<Persona> listaVacaciones = new VacacionesDAO().listarVacaciones();
+        olVacaciones.addAll(listaVacaciones);
+    }
+
+    void alertasPersonalizables(String titulo, String mensaje, AlertType icono) {
+        Alert alert = new Alert(icono);
+        alert.setHeaderText(titulo);
         alert.setTitle("Vacaciones");
         alert.setContentText(mensaje);
         alert.showAndWait();

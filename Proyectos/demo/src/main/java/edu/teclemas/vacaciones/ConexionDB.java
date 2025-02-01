@@ -28,7 +28,9 @@ public class ConexionDB {
             boolean valid = connection.isValid(50000);
             System.out.println(valid ? "TEST OK" : "TEST FAIL");
         } catch (java.sql.SQLException sqle) {
-            System.out.println("Error: " + sqle);
+            System.out.println("Lemas - Error: " + sqle);
+            // Propaga la excepción a la clase que llama a connectDatabase
+            throw new RuntimeException("No se puede conectar a la base de datos", sqle);
         }
     } 
 }
